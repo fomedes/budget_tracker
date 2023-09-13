@@ -1,0 +1,21 @@
+.form-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+}
+
+input[matinput]::-webkit-outer-spin-button,
+input[matinput]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.mat-datepicker-content {
+  max-width: 250px; /* Adjust the width as needed */
+}
+
+mat-form-field {
+  width: 100%;
+}
