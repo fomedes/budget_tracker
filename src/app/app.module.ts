@@ -13,14 +13,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
+import { HomeComponent } from './components/home/home.component';
 import { TransactionDetailComponent } from './components/transactions/transaction-detail/transaction-detail.component';
 import { TransactionListComponent } from './components/transactions/transaction-list/transaction-list.component';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { LoginComponent } from './components/login/login.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { RegisterComponent } from './components/register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
     TransactionListComponent,
     TransactionDetailComponent,
     HeaderComponent,
+    HomeComponent,
+    CategoriesComponent,
+    LoginComponent,
+    ProfileComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

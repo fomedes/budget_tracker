@@ -24,6 +24,8 @@ export class SharedService {
     error?: ResponseError
   ): Promise<void> {
     const toastMsg = document.getElementById(element);
+    console.log(toastMsg);
+
     if (toastMsg) {
       if (validRequest) {
         toastMsg.className = 'show requestOk';
@@ -54,12 +56,28 @@ export class SharedService {
     }
   }
 
-  errorLog(error: ResponseError): void {
-    console.error('path:', error.path);
-    console.error('timestamp:', error.timestamp);
-    console.error('message:', error.message);
-    console.error('messageDetail:', error.messageDetail);
-    console.error('statusCode:', error.statusCode);
+  errorLog(error: any): void {
+    console.error('Error occurred:');
+
+    if (error instanceof ProgressEvent) {
+      console.error('Network error occurred. This might be a CORS issue.');
+      return;
+    }
+
+    // Handle other types of errors as before
+    console.error('Status:', error.status);
+    console.error('Status Text:', error.statusText);
+    console.error('Message:', error.message);
+    console.error('Error Object:', error.error);
+
+    // Additional logging if the error object has more properties
+    if (error.error instanceof ErrorEvent) {
+      console.error('Client-side error occurred:', error.error.message);
+    } else {
+      console.error('Server-side error details:', error.error);
+    }
+
+    // You can log more details based on the structure of the error object
   }
 
   async wait(ms: number) {

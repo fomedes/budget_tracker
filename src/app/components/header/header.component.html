@@ -1,10 +1,14 @@
 <!-- NO AUTH REQUIRED -->
 <div *ngIf="showNoAuthSection">
-  <button (click)="navigationTo('dashboard')">Dashboard</button>
-  <button (click)="navigationTo('home')">Home</button>
   <button (click)="navigationTo('login')">Login</button>
   <button (click)="navigationTo('register')">Register</button>
 </div>
+<div *ngIf="showAuthSection">
+  <button (click)="navigationTo('dashboard')">Dashboard</button>
+  <button (click)="navigationTo('home')">Home</button>
+  <button (click)="navigationTo('logout')">Logout</button>
+</div>
+
 <div>
   <p>Default currency:</p>
   <select name="currency_default" id="">
