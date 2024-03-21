@@ -37,7 +37,10 @@ export class AuthService {
   };
   constructor(private http: HttpClient, private sharedService: SharedService) {
     this.controller = 'login';
-    this.urlApi = 'http://localhost:3000/api/' + this.controller;
+    // this.urlApi = 'http://localhost:3000/api/' + this.controller;
+    this.urlApi =
+      'https://travel-budget-tracker-api-dev-mqaq.1.ie-1.fl0.io' +
+      this.controller;
   }
 
   login(auth: AuthDTO): Observable<AuthToken> {

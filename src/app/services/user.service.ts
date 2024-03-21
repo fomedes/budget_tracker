@@ -15,7 +15,10 @@ export class UserService {
 
   constructor(private http: HttpClient, private sharedService: SharedService) {
     this.controller = 'users';
-    this.urlApi = 'http://localhost:3000/api/' + this.controller;
+    // this.urlApi = 'http://localhost:3000/api/' + this.controller;
+    this.urlApi =
+      'https://travel-budget-tracker-api-dev-mqaq.1.ie-1.fl0.io' +
+      this.controller;
   }
 
   register(user: UserDTO): Observable<UserDTO> {
