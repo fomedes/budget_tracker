@@ -1,6 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { HeaderMenus } from '../models/header-menus.dto';
+import { HeaderMenusService } from './header-menus.service';
 
 export interface ResponseError {
   statusCode: number;
@@ -16,7 +20,44 @@ export interface ResponseError {
   providedIn: 'root',
 })
 export class SharedService {
-  constructor() {}
+  showAuthSection: boolean;
+  showNoAuthSection: boolean;
+
+  private dataStore: Map<string, any> = new Map();
+
+  constructor(
+    private router: Router,
+    private headerMenusService: HeaderMenusService,
+    private localStorageService: LocalStorageService
+  ) {
+    this.showAuthSection = false;
+    this.showNoAuthSection = true;
+  }
+
+  navigationTo(route: string): void {
+    if (route == 'logout') {
+      // Cookies.remove;
+      const headerInfo: HeaderMenus = {
+        showAuthSection: false,
+        showNoAuthSection: true,
+      };
+
+      this.headerMenusService.headerManagement.next(headerInfo);
+
+      this.router.navigateByUrl('home');
+    } else {
+      this.router.navigateByUrl(route),
+        { queryParams: { returnUrl: this.router.url } };
+    }
+  }
+
+  setData(key: string, value: any): void {
+    this.dataStore.set(key, value);
+  }
+
+  getData(key: string): any {
+    return this.dataStore.get(key);
+  }
 
   async managementToast(
     element: string,

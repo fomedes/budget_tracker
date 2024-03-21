@@ -18,9 +18,11 @@ export interface deleteResponse {
 })
 export class TransactionService {
   private urlApi: string;
+  private controller: string;
 
   constructor(private http: HttpClient, private sharedService: SharedService) {
-    this.urlApi = '';
+    this.controller = 'transactions';
+    this.urlApi = 'http://localhost:3000/api/' + this.controller;
   }
 
   getTransaction(): Observable<TransactionDTO[]> {
@@ -35,17 +37,21 @@ export class TransactionService {
       .pipe(catchError(this.sharedService.handleError));
   }
 
-  getTransactionByUserId(userId: string): Observable<TransactionDTO[]> {
+  getTransactionByUserId(user_id: string): Observable<TransactionDTO[]> {
     return this.http
-      .get<TransactionDTO[]>(
-        'http://localhost:3000/users/transactions/' + userId
-      )
+      .get<TransactionDTO[]>(this.urlApi + '/find/user/' + user_id)
+      .pipe(catchError(this.sharedService.handleError));
+  }
+
+  getTransactionByPlanId(plan_id: string): Observable<TransactionDTO[]> {
+    return this.http
+      .get<TransactionDTO[]>(this.urlApi + '/find/plan/' + plan_id)
       .pipe(catchError(this.sharedService.handleError));
   }
 
   createTransaction(transaction: TransactionDTO): Observable<TransactionDTO> {
     return this.http
-      .post<TransactionDTO>(this.urlApi, transaction)
+      .post<TransactionDTO>(this.urlApi + '/create', transaction)
       .pipe(catchError(this.sharedService.handleError));
   }
 

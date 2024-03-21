@@ -1,1 +1,44 @@
-<p>home works!</p>
+<!-- NO AUTH REQUIRED -->
+<div class="container">
+  <h1>Welcome to Budget tracker</h1>
+
+<div *ngIf="showNoAuthSection">
+  <div>
+    <button (click)="navigationTo('login')">Login</button>
+    <button (click)="navigationTo('register')">Register</button>
+  </div>
+</div>
+
+<!-- AUTH REQUIRED -->
+  <div *ngIf="showAuthSection">  
+      <div class="main-content">
+        <!-- <button (click)="navigationTo('user/transaction/')">Create New Expense</button> -->
+        <!-- Button to create a new expense category -->
+        <button (click)="navigationTo('user/category/')">Create New Category</button>
+        <button (click)="navigationTo('user/plan/new')">Create New Plan</button>
+
+        <h3>Your Plans:</h3>
+        <div class="card-container">
+          <div *ngFor="let plan of userPlans" class="card">
+            <div class="card-header">
+              <a (click)="navigationTo('user/plan/' + plan.id)">{{ plan.title }}</a></div>
+          </div>
+        </div>
+        
+        <!-- <div class="card-container">
+          <div *ngFor="let expense of lastThreeExpenses" class="card">
+            <div class="card-header">{{ expense.name }}</div>
+            <div class="card-body">
+              Amount: {{ expense.amount | currency }}
+            </div>
+          </div>
+        </div> -->
+        <!-- Last month recap expenses -->
+        <div class="recap-section">
+          <h3>Last Month Recap Expenses:</h3>
+          <div>Total Expenses: {{ lastMonthRecap.total | currency }}</div>
+          <div>Total Categories: {{ lastMonthRecap.categories }}</div>
+        </div>
+      </div>      
+  </div>
+</div>

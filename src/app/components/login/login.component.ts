@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
+import Cookies from 'js-cookie';
 import { AuthDTO } from 'src/app/models/auth.dto';
 import { HeaderMenus } from 'src/app/models/header-menus.dto';
 import { AuthService, AuthToken } from 'src/app/services/auth.service';
@@ -86,14 +87,24 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (resp: AuthToken) => {
           responseOK = true;
-          this.loginUser.user_id = resp.user_id;
-          this.loginUser.access_token = resp.access_token;
+          const token = resp.access_token;
+          const user_id = resp.user_id;
 
-          this.localStorageService.set('user_id', this.loginUser.user_id);
-          this.localStorageService.set(
-            'access_token',
-            this.loginUser.access_token
-          );
+          Cookies.set('access_token', token);
+          Cookies.set('user_id', user_id);
+
+          // this.authService.httpInterceptor = (request, next) => {
+          //   const token = Cookies.get('access_token');
+          //   if (token) {
+          //     console.log('Authorization header added with token:', token);
+          //     request = request.clone({
+          //       setHeaders: { Authorization: `Bearer ${token}` },
+          //     });
+          //   } else {
+          //     console.log('No access token found in cookie');
+          //   }
+          //   return next.handle(request);
+          // };
         },
         (error: HttpErrorResponse) => {
           responseOK = false;

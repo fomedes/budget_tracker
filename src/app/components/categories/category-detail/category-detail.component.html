@@ -1,0 +1,27 @@
+<!-- category-detail.component.html -->
+
+<div class="form-container">
+  <h1>New Category</h1>
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <div class="form-field">
+      <mat-form-field hideRequiredMarker appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput type="text" formControlName="title" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field hideRequiredMarker appearance="outline">
+        <mat-label>Icon</mat-label>
+        <img *ngIf="icon.value" src="{{ 'assets/icons/' + icon.value + '.ico' }}" alt="{{ icon.value }}" width="32" height="32" />
+        <input matInput [value]="icon.value" [readonly]="true" (click)="openIconSelectionDialog()" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-action">
+      <button mat-raised-button color="primary" type="submit" [disabled]="categoryForm.invalid">
+        Save
+      </button>
+    </div>
+  </form>
+</div>

@@ -16,6 +16,8 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "types": ["@types/js-cookie"],
+    "esModuleInterop": true,
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
@@ -23,6 +25,7 @@
       "ES2022",
       "dom"
     ]
+    
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

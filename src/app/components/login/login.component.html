@@ -1,20 +1,36 @@
 <div style="margin-left: auto; margin-right: auto">
   <p id="loginFeedback"></p>
 </div>
-<div>
+<div class="form-container">
   <h1>Login</h1>
+
   <form [formGroup]="loginForm" (ngSubmit)="login()">
-    <div>
-      <label for="email">Email: </label>
-      <input type="email" [formControl]="email" />
+
+    <div class="form-field">
+      <mat-form-field appearance="outline" hideRequiredMarker>
+        <mat-label for="email">Email: </mat-label>
+        <input matInput type="email" formControlName="email" required />
+        <mat-error *ngIf="email.hasError('required')">
+          Email is required
+        </mat-error>
+    </mat-form-field>
     </div>
 
-    <div>
-      <label for="password">Password: </label>
-      <input type="password" [formControl]="password" />
+    <div class="form-field">
+      <mat-form-field appearance="outline" hideRequiredMarker>
+        <mat-label for="password">Password: </mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-error *ngIf="password.hasError('required')">
+          Password is required
+        </mat-error>
+      </mat-form-field>
     </div>
 
-    <button type="submit" [disabled]="!loginForm.valid">Login</button>
+    <div class="form-action">
+      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+        Login
+      </button>
+    </div>
   </form>
 </div>
 

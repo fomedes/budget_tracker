@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import Cookies from 'js-cookie';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { UserDTO } from '../models/user.dto';
@@ -18,21 +19,25 @@ export class UserService {
   }
 
   register(user: UserDTO): Observable<UserDTO> {
-    console.log(this.urlApi + '/register');
     return this.http
       .post<UserDTO>(this.urlApi + '/register', user)
       .pipe(catchError(this.sharedService.handleError));
   }
 
-  updateUser(userId: string, user: UserDTO): Observable<UserDTO> {
+  updateUser(user_id: string, user: any): Observable<UserDTO> {
     return this.http
-      .put<UserDTO>(this.urlApi + '/' + userId, user)
+      .patch<UserDTO>(this.urlApi + '/update/' + user_id, user)
       .pipe(catchError(this.sharedService.handleError));
   }
 
-  getUSerById(userId: string): Observable<UserDTO> {
+  getUserById(user_id: string): Observable<UserDTO> {
     return this.http
-      .get<UserDTO>(this.urlApi + '/' + userId)
+      .get<UserDTO>(this.urlApi + '/find/' + user_id)
       .pipe(catchError(this.sharedService.handleError));
+  }
+
+  getCurrentUser(): string | null {
+    const userId = Cookies.get('user_id');
+    return userId === undefined ? null : userId;
   }
 }

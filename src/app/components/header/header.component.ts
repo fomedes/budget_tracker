@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { HeaderMenus } from 'src/app/models/header-menus.dto';
 import { HeaderMenusService } from 'src/app/services/header-menus.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { SharedService } from 'src/app/services/shared.service';
 import { CurrencyList } from 'src/app/shared/currencies.constants';
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -19,7 +19,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private headerMenusService: HeaderMenusService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private sharedService: SharedService
   ) {
     this.showAuthSection = false;
     this.showNoAuthSection = true;
@@ -35,20 +36,6 @@ export class HeaderComponent implements OnInit {
   }
 
   navigationTo(route: string): void {
-    if (route == 'logout') {
-      this.localStorageService.remove('user_id');
-      this.localStorageService.remove('access_token');
-
-      const headerInfo: HeaderMenus = {
-        showAuthSection: false,
-        showNoAuthSection: true,
-      };
-
-      this.headerMenusService.headerManagement.next(headerInfo);
-
-      this.router.navigateByUrl('home');
-    } else {
-      this.router.navigateByUrl(route);
-    }
+    this.sharedService.navigationTo(route);
   }
 }

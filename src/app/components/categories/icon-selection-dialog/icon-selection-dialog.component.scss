@@ -1,0 +1,21 @@
+.icon-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+mat-icon {
+  font-size: 36px;
+  cursor: pointer;
+}
+
+.icon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.icon-item {
+  cursor: pointer;
+  margin-bottom: 10px; /* Add margin for spacing between icons */
+}

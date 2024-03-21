@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
+import { UniqueCurrencyPipe } from 'src/app/pipes/unique-currency.pipe';
+import { CountriesList } from 'src/app/shared/countries.constants';
 import { HeaderMenus } from '../../models/header-menus.dto';
 import { UserDTO } from '../../models/user.dto';
 import { HeaderMenusService } from '../../services/header-menus.service';
@@ -18,26 +20,32 @@ import { UserService } from '../../services/user.service';
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
+  providers: [UniqueCurrencyPipe],
 })
 export class RegisterComponent implements OnInit {
   registerUser: UserDTO;
 
   name: FormControl;
   username: FormControl;
+  currency: FormControl;
+  defaultCurrency: FormControl;
   email: FormControl;
   password: FormControl;
 
   registerForm: FormGroup;
   isValidForm: boolean | null;
 
+  Countries = CountriesList;
+
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private sharedService: SharedService,
     private headerMenusService: HeaderMenusService,
-    private router: Router
+    private router: Router,
+    private uniqueCurrency: UniqueCurrencyPipe
   ) {
-    this.registerUser = new UserDTO('', '', '', '');
+    this.registerUser = new UserDTO();
 
     this.isValidForm = null;
 
@@ -58,16 +66,24 @@ export class RegisterComponent implements OnInit {
       Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
     ]);
 
+    this.currency = new FormControl(this.registerUser.currency, [
+      Validators.required,
+    ]);
+
+    this.defaultCurrency = new FormControl(this.registerUser.defaultCurrency, [
+      Validators.required,
+    ]);
+
     this.password = new FormControl(this.registerUser.password, [
       Validators.required,
       Validators.minLength(8),
     ]);
 
     this.registerForm = this.formBuilder.group({
-      name: this.name,
       username: this.username,
       email: this.email,
-      passwordHash: this.password,
+      defaultCurrency: this.defaultCurrency,
+      password: this.password,
     });
   }
 
@@ -84,8 +100,6 @@ export class RegisterComponent implements OnInit {
 
     this.isValidForm = true;
     this.registerUser = this.registerForm.value;
-
-    console.log(this.registerUser);
 
     this.userService
       .register(this.registerUser)

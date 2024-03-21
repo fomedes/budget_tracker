@@ -1,0 +1,30 @@
+<div class="form-container">
+  <h1>New Plan</h1>
+  <form [formGroup]="planForm" (ngSubmit)="createPlan()">
+    <div class="form-field">
+      <mat-form-field hideRequiredMarker appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput type="text" formControlName="title" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field hideRequiredMarker appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" />
+      </mat-form-field>
+    </div>
+    
+    <div class="form-field">
+      <mat-form-field hideRequiredMarker appearance="outline">
+        <mat-label>Picture</mat-label>
+        <input matInput formControlName="description" />
+      </mat-form-field>
+    </div>
+    <div class="form-action">
+      <button mat-raised-button color="primary" type="submit" [disabled]="planForm.invalid">
+        Save
+      </button>
+    </div>
+</form>
+</div>
