@@ -24,7 +24,7 @@ export class PlanService {
     this.controller = 'plans';
     // this.urlApi = 'http://localhost:3000/api/' + this.controller;
     this.urlApi =
-      'https://travel-budget-tracker-api-dev-mqaq.1.ie-1.fl0.io/' +
+      'https://travel-budget-tracker-api-dev-mqaq.1.ie-1.fl0.io/api/' +
       this.controller;
   }
 
