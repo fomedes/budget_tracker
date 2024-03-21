@@ -11,7 +11,7 @@
           <div *ngFor="let transaction of planTransactions" class="card">
             <div class="card-header">{{ transaction.title }}</div>
             <div class="card-body">
-              Amount: {{ transaction.amount | currency }}
+              {{ transaction.amount | currency }}
             </div>
           </div>
         </div>
