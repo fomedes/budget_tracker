@@ -59,7 +59,7 @@ export class PlanItemComponent {
     this.transactionService
       .getTransactionByPlanId(plan_id)
       .subscribe((transactions) => {
-        this.planTransactions = transactions.sort((a, b) => {
+        this.planTransactions = transactions.sort((b, a) => {
           return new Date(a.date).getTime() - new Date(b.date).getTime();
         });
 

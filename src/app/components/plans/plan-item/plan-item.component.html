@@ -12,6 +12,9 @@
           <span class="transaction-title">{{ transaction.title }}</span> -
           <span class="transaction-amount">
             {{ transaction.amount | currency: transaction.currency }}
+          </span> - 
+          <span class="transaction-amount">
+            {{ transaction.accountCurrencyAmount | currency: (transaction.accountCurrency || 'GBP') }}
           </span>
         </li>
       </ul>
