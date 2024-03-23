@@ -1,8 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Cookies from 'js-cookie';
 import { PlanDTO } from 'src/app/models/plan.dto';
-import { TransactionDTO } from 'src/app/models/transaction.dto';
 import { HeaderMenusService } from 'src/app/services/header-menus.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { PlanService } from 'src/app/services/plan.service';
@@ -22,7 +22,8 @@ export class PlanItemComponent {
   private plan_id: string | null;
 
   currentPlan!: PlanDTO;
-  planTransactions!: TransactionDTO[];
+  planTransactions!: any[];
+  transactionsDates!: any[];
 
   constructor(
     private headerMenusService: HeaderMenusService,
@@ -31,7 +32,8 @@ export class PlanItemComponent {
     private sharedService: SharedService,
     private planService: PlanService,
     private userService: UserService,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private datePipe: DatePipe
   ) {
     this.plan_id = this.activatedRoute.snapshot.paramMap.get('id');
   }
@@ -57,7 +59,22 @@ export class PlanItemComponent {
     this.transactionService
       .getTransactionByPlanId(plan_id)
       .subscribe((transactions) => {
-        this.planTransactions = transactions;
+        this.planTransactions = transactions.sort((a, b) => {
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        });
+
+        this.planTransactions = transactions.map((transaction) => ({
+          ...transaction,
+          date: this.datePipe.transform(transaction.date, 'dd-MM-yyyy')!,
+        }));
+
+        this.transactionsDates = Array.from(
+          new Set(
+            transactions.map(
+              (t) => this.datePipe.transform(t.date, 'dd-MM-yyyy')!
+            )
+          )
+        );
       });
   }
 }

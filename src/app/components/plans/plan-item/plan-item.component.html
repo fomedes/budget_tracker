@@ -1,19 +1,20 @@
 <div class="container">
-  <h1>{{currentPlan.title}}</h1>
+  <h1>{{ currentPlan.title }}</h1>
   <div class="main-content">
     <button (click)="navigationTo('user/transaction/')">Create New Transaction</button>
-    <!-- Button to create a new transaction category -->
-    <!-- <button (click)="navigationTo('user/plan/new')">Add a Plan</button> -->
+    </div>
+  <h2>Last transactions:</h2>
+  <div class="transaction-list">
+    <ul *ngFor="let date of transactionsDates">
+      <li class="transaction-date">{{ date }}</li>
+      <ul>
+        <li *ngFor="let transaction of planTransactions | filterByDate:date">
+          <span class="transaction-title">{{ transaction.title }}</span> -
+          <span class="transaction-amount">
+            {{ transaction.amount | currency: transaction.currency }}
+          </span>
+        </li>
+      </ul>
+    </ul>
   </div>
-  <div>
-    <h2>Last transactions:</h2>
-        <div class="card-container">
-          <div *ngFor="let transaction of planTransactions" class="card">
-            <div class="card-header">{{ transaction.title }}</div>
-            <div class="card-body">
-              {{ transaction.amount | currency: transaction.currency }}
-            </div>
-          </div>
-        </div>
-      </div>
-</div>  
+</div>

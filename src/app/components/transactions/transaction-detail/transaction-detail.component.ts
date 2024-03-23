@@ -142,6 +142,7 @@ export class TransactionDetailComponent implements OnInit {
         if (currencyControl) {
           currencyControl.setValue(selectedCountry.currency.name);
           this.currencySymbol = selectedCountry.currency.symbol || '';
+          this.currency.setValue(selectedCountry.currency.code || '');
           this.getCurrencyRate(selectedCountry);
         }
       }
@@ -231,6 +232,7 @@ export class TransactionDetailComponent implements OnInit {
     this.categoryService
       .getCategoryByUserId(user_id)
       .subscribe((categories) => {
+        categories.sort((a, b) => a.title.localeCompare(b.title));
         this.userCategories = categories;
       });
   }

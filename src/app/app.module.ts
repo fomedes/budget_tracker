@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { CommonModule, DatePipe } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,13 +23,14 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { PlanDetailComponent } from './components/plans/plan-detail/plan-detail.component';
+import { PlanItemComponent } from './components/plans/plan-item/plan-item.component';
 import { PlanListComponent } from './components/plans/plan-list/plan-list.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TransactionDetailComponent } from './components/transactions/transaction-detail/transaction-detail.component';
 import { TransactionListComponent } from './components/transactions/transaction-list/transaction-list.component';
+import { FilterByDatePipe } from './pipes/filter-by-date.pipe';
 import { UniqueCurrencyPipe } from './pipes/unique-currency.pipe';
-import { PlanItemComponent } from './components/plans/plan-item/plan-item.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +48,7 @@ import { PlanItemComponent } from './components/plans/plan-item/plan-item.compon
     PlanListComponent,
     UniqueCurrencyPipe,
     PlanItemComponent,
+    FilterByDatePipe,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +64,7 @@ import { PlanItemComponent } from './components/plans/plan-item/plan-item.compon
     HttpClientModule,
     MatDialogModule,
     MatIconModule,
+    CommonModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
@@ -69,6 +73,7 @@ import { PlanItemComponent } from './components/plans/plan-item/plan-item.compon
       useClass: TokenInterceptor,
       multi: true,
     },
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })
