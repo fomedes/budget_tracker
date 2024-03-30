@@ -118,7 +118,7 @@ export class TransactionDetailComponent implements OnInit {
       title: this.title,
       description: this.description,
       date: this.date,
-      category: this.category,
+      category_id: this.category,
       country: this.country,
       currency: this.currency,
       amount: this.amount,
