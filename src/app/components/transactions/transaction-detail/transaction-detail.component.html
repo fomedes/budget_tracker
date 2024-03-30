@@ -29,7 +29,7 @@
     <div class="form-field">
       <mat-form-field hideRequiredMarker appearance="outline">
         <mat-label>Category</mat-label>
-        <mat-select formControlName="category">
+        <mat-select formControlName="category_id">
           <mat-option *ngFor="let category of userCategories" [value]="category.id">{{ category.title }}</mat-option>
         </mat-select>
       </mat-form-field>
