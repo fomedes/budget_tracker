@@ -30,7 +30,7 @@ export class TransactionDetailComponent implements OnInit {
   transaction: TransactionDTO;
   title: FormControl;
   date: FormControl;
-  category_id: FormControl;
+  category: FormControl;
   amount: FormControl;
   currency: FormControl;
   country: FormControl;
@@ -94,7 +94,7 @@ export class TransactionDetailComponent implements OnInit {
       [Validators.required]
     );
 
-    this.category_id = new FormControl(this.transaction.category, [
+    this.category = new FormControl(this.transaction.category, [
       Validators.required,
     ]);
 
@@ -118,7 +118,7 @@ export class TransactionDetailComponent implements OnInit {
       title: this.title,
       description: this.description,
       date: this.date,
-      category_id: this.category_id,
+      category: this.category,
       country: this.country,
       currency: this.currency,
       amount: this.amount,
